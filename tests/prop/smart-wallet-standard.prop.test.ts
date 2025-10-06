@@ -1,5 +1,5 @@
 import { initSimnet, tx } from "@hirosystems/clarinet-sdk";
-import { Cl } from "@stacks/transactions";
+import { Cl, ClarityType } from "@stacks/transactions";
 import { describe, expect, it } from "vitest";
 import { accounts, deployments } from "../../clarigen/src/clarigen-types";
 import fc from "fast-check";
@@ -12,6 +12,10 @@ const deployer = accounts.deployer.address;
 
 const smartWalletStandard = deployments.smartWalletStandard.simnet;
 
+// TODO:
+// 1. Add prop tests comparing contract-caller and tx-sender ops (dummy SCs will probably be needed).
+// 2. Add prop tests generating unexpected data for the payloads. Check serialization/deserialization.
+// 3. Add roundtrip tests for the payload.
 describe("Smart Wallet Standard", () => {
   describe("STX Transfer", () => {
     it("transfer from underfunded smart wallet always fails and balances are unchanged", async () => {
@@ -427,6 +431,18 @@ describe("Smart Wallet Standard", () => {
           }
         )
       );
+    });
+
+    it("malicious wrapper tricks owner into transferring ownership", async () => {
+      const simnet = await initSimnet();
+
+      const { result } = simnet.callPublicFn(
+        deployments.maliciousWrapper.simnet,
+        "claim-rewards",
+        [Cl.principal(smartWalletStandard)],
+        deployer
+      );
+      expect(result).toBeOk(Cl.bool(true));
     });
   });
 });

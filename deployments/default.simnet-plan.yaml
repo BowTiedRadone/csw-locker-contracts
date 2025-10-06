@@ -230,6 +230,16 @@ plan:
             path: contracts/admin/inactive-observer.clar
             clarity-version: 3
         - emulated-contract-publish:
+            contract-name: mal-smart-wallet-trait
+            emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+            path: contracts/tests/malicious-smart-wallet-trait.clar
+            clarity-version: 3
+        - emulated-contract-publish:
+            contract-name: malicious-wrapper
+            emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+            path: contracts/tests/malicious-wrapper.clar
+            clarity-version: 3
+        - emulated-contract-publish:
             contract-name: no-rules
             emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
             path: contracts/rules/no-rules.clar
@@ -254,6 +264,9 @@ plan:
             emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
             path: contracts/smart-wallet-standard.clar
             clarity-version: 3
+      epoch: "3.1"
+    - id: 5
+      transactions:
         - emulated-contract-publish:
             contract-name: smart-wallet-standard_test
             emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
@@ -264,9 +277,6 @@ plan:
             emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
             path: contracts/rules/standard-rules.clar
             clarity-version: 3
-      epoch: "3.1"
-    - id: 5
-      transactions:
         - emulated-contract-publish:
             contract-name: smart-wallet-with-rules
             emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
